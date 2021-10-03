@@ -81,6 +81,8 @@ private class RemovalQueue<K : Any, V : Any> {
     }
 
     private fun removeNode(node: Node<K, V>): Node<K, V> {
+        assert(tail.next !== head) { "Can't remove node from empty queue" }
+
         val previousNode = node.previous!!
         val nextNode = node.next!!
         previousNode.next = nextNode

@@ -11,6 +11,7 @@ class LRUCacheTest {
         cache[0] = 0
         assertThat(cache[0]).isEqualTo(0)
     }
+
     @Test
     fun `should store last 1 element`() {
         val cache = LRUCache<Int, Int>(1)
