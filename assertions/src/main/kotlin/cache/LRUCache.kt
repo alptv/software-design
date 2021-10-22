@@ -1,4 +1,4 @@
-package assertions.cache
+package cache
 
 class LRUCache<K : Any, V : Any>(private val maxCachedElementCount: Int) {
     private val cachedElements: MutableMap<K, Node<K, V>> = mutableMapOf()

@@ -1,4 +1,4 @@
-package assertions.cache
+package cache
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -58,6 +58,8 @@ class LRUCacheTest {
         cache[0] = 3
         cache[1] = 4
         cache[2] = 5
+
+        assertThat(cache)
         assertThat(cache[0]).isEqualTo(3)
         assertThat(cache[1]).isEqualTo(4)
         assertThat(cache[2]).isEqualTo(5)
