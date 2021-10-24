@@ -4,7 +4,6 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.http.*
 import java.util.Map.entry
 
 
@@ -21,12 +20,12 @@ class VkApiClientImpl(
 
     override suspend fun executeMethod(method: String, parameters: Map<String, String>): String {
         val url = "$host/method/$method?${joinParameters(parameters)}"
-        val response: HttpResponse = client.request(url)
-        if (response.status != HttpStatusCode.OK) {
-            throw VkApiException("Error during http request")
+        try {
+            val response: HttpResponse = client.request(url)
+            return response.receive()
+        } catch (e: Exception) {
+            throw VkApiException("Error during http request", e)
         }
-        return response.receive()
-
     }
 
     private fun joinParameters(parameters: Map<String, String>): String {
