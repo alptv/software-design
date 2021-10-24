@@ -1,6 +1,5 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.servlet.get;
 
-import ru.akirakozov.sd.refactoring.database.DatabaseQueriesExecutor;
 import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
 import ru.akirakozov.sd.refactoring.servlet.utils.ServletQueryExecutor;
 
@@ -8,7 +7,6 @@ import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.ResultSet;
 
 /**
  * @author akirakozov

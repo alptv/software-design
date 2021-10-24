@@ -1,6 +1,8 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.servlet.get;
 
 import org.junit.Test;
+import ru.akirakozov.sd.refactoring.servlet.ProductDBEnvironment;
+import ru.akirakozov.sd.refactoring.servlet.ServletTest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;

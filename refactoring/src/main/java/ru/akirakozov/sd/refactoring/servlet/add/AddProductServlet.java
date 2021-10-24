@@ -1,4 +1,4 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.servlet.add;
 
 import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
 import ru.akirakozov.sd.refactoring.servlet.utils.ServletQueryExecutor;

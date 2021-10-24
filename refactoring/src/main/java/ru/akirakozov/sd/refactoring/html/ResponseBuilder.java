@@ -33,7 +33,7 @@ public class ResponseBuilder {
         build(content.toString());
     }
 
-    private void build(@Nonnull String content) {
+    private void build(String content) {
         try {
             response.getWriter().print(content);
             response.setContentType("text/html");

@@ -1,7 +1,9 @@
-package ru.akirakozov.sd.refactoring.servlet;
+package ru.akirakozov.sd.refactoring.servlet.query;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.akirakozov.sd.refactoring.servlet.ProductDBEnvironment;
+import ru.akirakozov.sd.refactoring.servlet.ServletTest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -40,7 +42,7 @@ public class QueryServletTest extends ServletTest {
     }
 
     @Test
-    public void minQuery() throws IOException {
+    public void minQuery() {
         when(request.getParameter("command")).thenReturn("min");
         queryServlet.doGet(request, response);
         assertThat(htmlResponse.toString()).isEqualTo(
@@ -55,7 +57,7 @@ public class QueryServletTest extends ServletTest {
     }
 
     @Test
-    public void sumQuery() throws IOException {
+    public void sumQuery() {
         when(request.getParameter("command")).thenReturn("sum");
         queryServlet.doGet(request, response);
         assertThat(htmlResponse.toString()).isEqualTo(
@@ -70,7 +72,7 @@ public class QueryServletTest extends ServletTest {
     }
 
     @Test
-    public void countQuery() throws IOException {
+    public void countQuery() {
         when(request.getParameter("command")).thenReturn("count");
         queryServlet.doGet(request, response);
         assertThat(htmlResponse.toString()).isEqualTo(
@@ -85,7 +87,7 @@ public class QueryServletTest extends ServletTest {
     }
 
     @Test
-    public void unknownQuery() throws IOException {
+    public void unknownQuery() {
         when(request.getParameter("command")).thenReturn("unknown");
         queryServlet.doGet(request, response);
         assertThat(htmlResponse.toString()).isEqualTo(
