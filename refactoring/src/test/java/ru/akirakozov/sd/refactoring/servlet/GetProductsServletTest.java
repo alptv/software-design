@@ -3,18 +3,17 @@ package ru.akirakozov.sd.refactoring.servlet;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 public class GetProductsServletTest extends ServletTest {
     private final GetProductsServlet getProductServlet = new GetProductsServlet(ProductDBEnvironment.DATABASE_URL);
 
     @Test
-    public void getFromEmptyDatabase() throws IOException {
+    public void getFromEmptyDatabase() {
         getProductServlet.doGet(request, response);
 
         assertThat(htmlResponse.toString()).isEqualTo(
@@ -27,7 +26,7 @@ public class GetProductsServletTest extends ServletTest {
 
 
     @Test
-    public void getFromNonEmptyDatabase() throws IOException, SQLException {
+    public void getFromNonEmptyDatabase() throws SQLException {
         productDBEnvironment.addProductInTable("name1", 101);
         productDBEnvironment.addProductInTable("name2", 102);
         productDBEnvironment.addProductInTable("name3", 103);

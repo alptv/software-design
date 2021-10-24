@@ -25,17 +25,21 @@ public class ResponseBuilder {
         this.content.append(content).append("</br>").append("\n");
     }
 
-    public void buildHtml() throws IOException {
+    public void buildHtml() {
         build("<html><body>\n" + content.toString() + "</body></html>\n");
     }
 
-    public void buildText() throws IOException {
+    public void buildText() {
         build(content.toString());
     }
 
-    private void build(String content) throws IOException {
-        response.getWriter().print(content);
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
+    private void build(@Nonnull String content) {
+        try {
+            response.getWriter().print(content);
+            response.setContentType("text/html");
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

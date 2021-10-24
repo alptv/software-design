@@ -3,15 +3,14 @@ package ru.akirakozov.sd.refactoring.database;
 import javax.annotation.Nonnull;
 import java.sql.*;
 
-public class DatabaseQueryExecutor implements AutoCloseable {
+public class DatabaseQueriesExecutor implements AutoCloseable {
     private final Statement statement;
     private final Connection connection;
 
-    public DatabaseQueryExecutor(@Nonnull final String dataBaseUrl) throws SQLException {
+    public DatabaseQueriesExecutor(@Nonnull final String dataBaseUrl) throws SQLException {
         this.connection = DriverManager.getConnection(dataBaseUrl);
         this.statement = connection.createStatement();
     }
-
 
     public void executeUpdate(final String update) throws SQLException {
         statement.executeUpdate(update);

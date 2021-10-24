@@ -1,13 +1,13 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
-import ru.akirakozov.sd.refactoring.database.DatabaseQueryExecutor;
+import ru.akirakozov.sd.refactoring.database.DatabaseQueriesExecutor;
 import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
+import ru.akirakozov.sd.refactoring.servlet.utils.ServletQueryExecutor;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.ResultSet;
 
 /**
@@ -21,20 +21,16 @@ public class GetProductsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         ResponseBuilder builder = new ResponseBuilder(response);
 
-        try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
-            ResultSet resultSet = executor.executeQuery("SELECT * FROM PRODUCT");
+        ServletQueryExecutor.executeQuery(dataBaseUrl, "SELECT * FROM PRODUCT", resultSet -> {
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 int price = resultSet.getInt("price");
                 builder.addLineBreak(name + "\t" + price);
             }
-            resultSet.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
         builder.buildHtml();
     }
 }

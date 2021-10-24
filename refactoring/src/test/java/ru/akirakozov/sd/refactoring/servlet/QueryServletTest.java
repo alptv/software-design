@@ -25,7 +25,7 @@ public class QueryServletTest extends ServletTest {
     }
 
     @Test
-    public void maxQuery() throws IOException {
+    public void maxQuery() {
         when(request.getParameter("command")).thenReturn("max");
         queryServlet.doGet(request, response);
         assertThat(htmlResponse.toString()).isEqualTo(

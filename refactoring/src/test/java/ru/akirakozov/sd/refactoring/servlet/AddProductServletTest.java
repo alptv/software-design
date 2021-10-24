@@ -3,19 +3,19 @@ package ru.akirakozov.sd.refactoring.servlet;
 import org.junit.Test;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class AddProductServletTest extends ServletTest {
     private final AddProductServlet addProductServlet = new AddProductServlet(ProductDBEnvironment.DATABASE_URL);
 
     @Test
-    public void addInEmptyDatabase() throws IOException, SQLException {
+    public void addInEmptyDatabase() throws SQLException {
         Product product = new Product("name", 100);
         when(request.getParameter("name")).thenReturn(product.getName());
         when(request.getParameter("price")).thenReturn(product.getPrice() + "");
@@ -35,7 +35,7 @@ public class AddProductServletTest extends ServletTest {
     }
 
     @Test
-    public void addInNonEmptyDatabase() throws IOException, SQLException {
+    public void addInNonEmptyDatabase() throws SQLException {
         productDBEnvironment.addProductInTable("name1", 101);
         productDBEnvironment.addProductInTable("name2", 102);
         productDBEnvironment.addProductInTable("name3", 103);
