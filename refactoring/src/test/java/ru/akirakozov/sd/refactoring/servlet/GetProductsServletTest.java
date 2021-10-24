@@ -14,7 +14,7 @@ public class GetProductsServletTest extends ServletTest {
     private final GetProductsServlet getProductServlet = new GetProductsServlet(ProductDBEnvironment.DATABASE_URL);
 
     @Test
-    public void getFromEmptyDatabase() throws IOException {
+    public void getFromEmptyDatabase() {
         getProductServlet.doGet(request, response);
 
         assertThat(htmlResponse.toString()).isEqualTo(
