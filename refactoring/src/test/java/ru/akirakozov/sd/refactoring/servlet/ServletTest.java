@@ -34,6 +34,12 @@ public abstract class ServletTest {
             htmlResponse.append(text).append("\n");
             return null;
         }).when(writer).println(anyInt());
+
+        doAnswer(invocation -> {
+            String text = String.valueOf(invocation.getArgumentAt(0, String.class));
+            htmlResponse.append(text);
+            return null;
+        }).when(writer).print(anyString());
         when(response.getWriter()).thenReturn(writer);
     }
 

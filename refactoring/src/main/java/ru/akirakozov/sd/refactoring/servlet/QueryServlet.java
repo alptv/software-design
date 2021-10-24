@@ -1,6 +1,9 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.database.DatabaseQueryExecutor;
+import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
+import ru.akirakozov.sd.refactoring.html.components.Body;
+import ru.akirakozov.sd.refactoring.html.components.TagHtmlComponent;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
@@ -23,76 +26,64 @@ public class QueryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
-
+        ResponseBuilder builder = new ResponseBuilder(response);
         if ("max".equals(command)) {
             try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
                 ResultSet rs = executor.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE DESC LIMIT 1");
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with max price: </h1>");
-
+                builder.addH1("Product with max price: ");
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    builder.addLineBreak(name + "\t" + price);
                 }
                 rs.close();
-                response.getWriter().println("</body></html>");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if ("min".equals(command)) {
             try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
-
                 ResultSet rs = executor.executeQuery("SELECT * FROM PRODUCT ORDER BY PRICE LIMIT 1");
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with min price: </h1>");
-
+                builder.addH1("Product with min price: ");
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
+                    builder.addLineBreak(name + "\t" + price);
                 }
                 rs.close();
-                response.getWriter().println("</body></html>");
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if ("sum".equals(command)) {
             try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
                 ResultSet rs = executor.executeQuery("SELECT SUM(price) FROM PRODUCT");
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Summary price: ");
+                builder.addLine("Summary price: ");
 
                 if (rs.next()) {
-                    response.getWriter().println(rs.getInt(1));
+                    builder.addLine(rs.getInt(1) + "");
                 }
                 rs.close();
-                response.getWriter().println("</body></html>");
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if ("count".equals(command)) {
             try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
                 ResultSet rs = executor.executeQuery("SELECT COUNT(*) FROM PRODUCT");
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Number of products: ");
+                builder.addLine("Number of products: ");
 
                 if (rs.next()) {
-                    response.getWriter().println(rs.getInt(1));
+                    builder.addLine(rs.getInt(1) + "");
                 }
-                response.getWriter().println("</body></html>");
-
+                rs.close();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
-            response.getWriter().println("Unknown command: " + command);
+            builder.addLine("Unknown command: " + command);
+            builder.buildText();
+            return;
         }
+        builder.buildHtml();
 
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 
 }

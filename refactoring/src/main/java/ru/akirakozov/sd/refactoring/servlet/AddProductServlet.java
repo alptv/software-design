@@ -1,6 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.database.DatabaseQueryExecutor;
+import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +32,8 @@ public class AddProductServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("OK");
+        ResponseBuilder builder = new ResponseBuilder(response);
+        builder.addLine("OK");
+        builder.buildText();
     }
 }
