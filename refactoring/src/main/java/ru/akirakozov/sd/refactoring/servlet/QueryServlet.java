@@ -2,8 +2,6 @@ package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.database.DatabaseQueryExecutor;
 import ru.akirakozov.sd.refactoring.html.ResponseBuilder;
-import ru.akirakozov.sd.refactoring.html.components.Body;
-import ru.akirakozov.sd.refactoring.html.components.TagHtmlComponent;
 
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
