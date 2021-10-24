@@ -1,38 +1,36 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
+import ru.akirakozov.sd.refactoring.database.DatabaseQueryExecutor;
+
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 /**
  * @author akirakozov
  */
 public class GetProductsServlet extends HttpServlet {
+    private final String dataBaseUrl;
+
+    public GetProductsServlet(@Nonnull final String dataBaseUrl) {
+        this.dataBaseUrl = dataBaseUrl;
+    }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-                Statement stmt = c.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
-                response.getWriter().println("<html><body>");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-                while (rs.next()) {
-                    String  name = rs.getString("name");
-                    int price  = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
-                }
-                response.getWriter().println("</body></html>");
-
-                rs.close();
-                stmt.close();
+        try (DatabaseQueryExecutor executor = new DatabaseQueryExecutor(dataBaseUrl)) {
+            ResultSet resultSet = executor.executeQuery("SELECT * FROM PRODUCT");
+            response.getWriter().println("<html><body>");
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                int price = resultSet.getInt("price");
+                response.getWriter().println(name + "\t" + price + "</br>");
             }
-
+            response.getWriter().println("</body></html>");
+            resultSet.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
