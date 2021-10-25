@@ -1,6 +1,6 @@
 package feed.statistics
 
-import feed.client.VkApiClient
+import feed.client.vk.VkApiClient
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -12,9 +12,12 @@ class FeedStatisticsImpl(
         const val method = "newsfeed.search"
     }
 
-    override suspend fun computeStatistics(hashtag: String, timeIntervalInHours: Int): List<Int> {
-        val statistic = mutableListOf<Int>()
+    override fun computeStatistics(hashtag: String, timeIntervalInHours: Int): List<Int> {
+        if (timeIntervalInHours > 24 || timeIntervalInHours < 1) {
+            throw FeedStatisticsException("Time interval should be in range 1..24")
+        }
 
+        val statistic = mutableListOf<Int>()
         var startTime = nowUnix().minusHours(timeIntervalInHours)
 
         repeat(timeIntervalInHours) {
@@ -28,10 +31,10 @@ class FeedStatisticsImpl(
     }
 
 
-    private fun getPostsCountFromJson(json : String) : Int {
+    private fun getPostsCountFromJson(json: String): Int {
         try {
             return JSONObject(json).getJSONObject("response").getInt("total_count")
-        } catch (e : JSONException) {
+        } catch (e: JSONException) {
             throw FeedStatisticsException("Invalid response", e)
         }
     }

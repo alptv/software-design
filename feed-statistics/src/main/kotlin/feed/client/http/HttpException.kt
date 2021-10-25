@@ -1,6 +1,6 @@
-package feed.statistics
+package feed.client.http
 
-class FeedStatisticsException : RuntimeException {
+class HttpException : RuntimeException {
     constructor(message: String, cause: Exception) : super(message, cause)
 
     constructor(message: String) : super(message)

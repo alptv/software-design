@@ -1,16 +1,14 @@
-package feed.client
+package feed.client.vk
 
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
+import feed.client.http.HttpClientWrapper
+import feed.client.http.HttpException
 import java.util.Map.entry
 
 
 class VkApiClientImpl(
     private val accessToken: String,
     private val version: String,
-    private val client: HttpClient = HttpClient(),
+    private val client: HttpClientWrapper,
 ) : VkApiClient {
 
     companion object {
@@ -18,13 +16,12 @@ class VkApiClientImpl(
     }
 
 
-    override suspend fun executeMethod(method: String, parameters: Map<String, String>): String {
+    override fun executeMethod(method: String, parameters: Map<String, String>): String {
         val url = "$host/method/$method?${joinParameters(parameters)}"
-        try {
-            val response: HttpResponse = client.request(url)
-            return response.receive()
-        } catch (e: Exception) {
-            throw VkApiException("Error during http request", e)
+        return try {
+            client.request(url)
+        } catch (e: HttpException) {
+            throw VkApiException("Error in http client during executing method", e)
         }
     }
 
