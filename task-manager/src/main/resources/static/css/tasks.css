@@ -1,0 +1,42 @@
+.tasksBoard {
+    display: flex;
+    flex-flow: wrap;
+}
+
+
+.tasksBoard .taskTicket {
+    margin: 1rem;
+    min-width: 12rem;
+    width: 12rem;
+    min-height: 16rem;
+    height: 16rem;
+}
+
+.tasksBoard .taskTicket .columnBox {
+    justify-content: start;
+    height: 100%;
+}
+
+.tasksBoard .taskTicket h3 {
+    text-align: center;
+    margin: 0;
+    overflow-wrap: anywhere;
+    min-height: 2.77em; /*25symbolsand 105*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tasksBoard .taskTicket.done h3 {
+    border-bottom: 2px solid green;
+}
+
+.tasksBoard .taskTicket.notDone h3 {
+    border-bottom: 2px solid var(--block-separator-color);
+}
+
+.tasksBoard .taskTicket p {
+    margin: 0.25em;
+    overflow-wrap: anywhere;
+}
+

@@ -1,0 +1,33 @@
+.taskLists {
+    padding: 0;
+    width: var(--default-field-width);
+    text-align: left;
+    background-color: white;
+    margin: 2em auto 0;
+    border-radius: var(--border-radius);
+}
+
+.taskLists ul {
+    margin: 0;
+    padding: 0;
+}
+
+.taskLists ul li {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    border-bottom: 2px solid var(--block-separator-color);
+}
+
+.taskLists ul li:last-of-type {
+    border-bottom: none;
+}
+
+.taskLists ul li .columnBox a {
+    vertical-align: middle;
+}
+
+.taskLists .columnBox {
+    flex-grow: 1;
+}
