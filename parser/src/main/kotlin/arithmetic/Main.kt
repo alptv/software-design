@@ -24,6 +24,6 @@ fun main() {
         println("Result: ${evalVisitor.visit(reversedPolishNotation)}")
 
     } catch (e: Exception) {
-        print(e.message)
+        println(e.message)
     }
 }
