@@ -8,7 +8,7 @@ import arithmetic.visitor.parser.state.Start
 import arithmetic.visitor.parser.state.ValidationState
 import java.util.*
 
-class ParserVisitor : Visitor<List<Token>> {
+class ParserVisitor : Visitor {
     private val operations = Stack<Token>()
     private val reversedPolishNotation = mutableListOf<Token>()
     private var validationState: ValidationState = Start()
@@ -41,6 +41,7 @@ class ParserVisitor : Visitor<List<Token>> {
     override fun visit(subtract: Subtract) {
         visitOperation(subtract)
     }
+
     override fun visit(multiply: Multiply) {
         visitOperation(multiply)
     }
@@ -49,10 +50,7 @@ class ParserVisitor : Visitor<List<Token>> {
         visitOperation(divide)
     }
 
-    override fun visit(tokens: List<Token>): List<Token> {
-        for (token in tokens) {
-            token.accept(this)
-        }
+    fun getReversedPolishNotation(): List<Token> {
         if (validationState !is Numeric && validationState !is CloseBrace) {
             throw IllegalStateException("Expression should ends with number or close bracket")
         }

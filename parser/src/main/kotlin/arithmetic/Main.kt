@@ -14,16 +14,21 @@ fun main() {
         val expression: String = readLine()!!
         val source: Source = StringSource(expression)
         val tokens = Tokenizer(source).tokenize()
+
         val parserVisitor = ParserVisitor()
-        val reversedPolishNotation = parserVisitor.visit(tokens)
+        tokens.forEach { it.accept(parserVisitor) }
+        val reversedPolishNotation = parserVisitor.getReversedPolishNotation()
+
         val printVisitor = PrintVisitor(StdoutPrinter())
         print("Reversed polish notation: ")
-        printVisitor.visit(reversedPolishNotation)
+        reversedPolishNotation.forEach { it.accept(printVisitor) }
         println()
+
         val evalVisitor = EvalVisitor()
-        println("Result: ${evalVisitor.visit(reversedPolishNotation)}")
+        reversedPolishNotation.forEach { it.accept(evalVisitor) }
+        println("Result: ${evalVisitor.evalValue()}")
 
     } catch (e: Exception) {
-        print(e.message)
+        println(e.message)
     }
 }

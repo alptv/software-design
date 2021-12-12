@@ -5,7 +5,7 @@ import arithmetic.visitor.Visitor
 
 class PrintVisitor(
     private val printer: Printer
-) : Visitor<Unit> {
+) : Visitor {
     init {
         printer.separator = " "
     }
@@ -37,11 +37,5 @@ class PrintVisitor(
 
     override fun visit(divide: Divide) {
         printer.print("/")
-    }
-
-    override fun visit(tokens: List<Token>) {
-        for (token in tokens) {
-            token.accept(this)
-        }
     }
 }

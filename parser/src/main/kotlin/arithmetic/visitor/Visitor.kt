@@ -2,7 +2,7 @@ package arithmetic.visitor
 
 import arithmetic.tokenizer.token.*
 
-interface Visitor<T> {
+interface Visitor {
 
     fun visit(openBracket: OpenBracket)
 
@@ -18,6 +18,5 @@ interface Visitor<T> {
 
     fun visit(divide: Divide)
 
-    fun visit(tokens: List<Token>) : T
 
 }

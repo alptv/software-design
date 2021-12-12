@@ -6,7 +6,7 @@ import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.util.*
 
-class EvalVisitor : Visitor<Int> {
+class EvalVisitor : Visitor {
     private val stack = Stack<Int>()
 
     override fun visit(openBracket: OpenBracket) {
@@ -42,14 +42,11 @@ class EvalVisitor : Visitor<Int> {
         }
     }
 
-    override fun visit(tokens: List<Token>): Int {
-        for (token in tokens) {
-            token.accept(this)
-        }
+    fun evalValue(): Int {
         if (stack.size != 1) {
             throw IllegalStateException("Incorrect reversed notation")
         }
-        return stack.pop()
+        return stack.peek()
 
     }
 
