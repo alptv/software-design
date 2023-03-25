@@ -1,0 +1,17 @@
+<link href="/css/product.css" rel="stylesheet">
+
+<div th:replace="~{menu :: with-menu(~{:: #add-product})}">
+
+    <form id="add-product" method="post">
+        <label for="name">Product name</label>
+        <input id="name" name="name" type="text">
+
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text">
+
+        <label for="amountUSD">Amount in USD</label>
+        <input id="amountUSD" name="amountUSD" type="text">
+
+        <button id="add-product-btn" type="submit" formaction="/product">Add product</button>
+    </form>
+</div>

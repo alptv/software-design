@@ -1,0 +1,17 @@
+#add-product {
+    display: flex;
+    height: 80vh;
+    flex-direction: column;
+    justify-content: right;
+    width: 20em;
+    margin: 7em auto 0;
+}
+
+#add-product input[type=text] {
+    width: 25em;
+}
+
+
+#add-product-btn {
+    width: 10em;
+}

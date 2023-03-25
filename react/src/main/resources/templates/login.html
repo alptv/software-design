@@ -1,0 +1,16 @@
+<link href="/css/auth.css" rel="stylesheet">
+
+<div th:replace="~{base :: page(~{:: #form-container})}">
+  <div id="form-container">
+    <form id="auth" method="post">
+      <label for="login">Login</label>
+      <input id="login" name="login" type="text">
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="text">
+
+      <button type="submit" formaction="/login">Login</button>
+      <a href="/regist">Register</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+#root {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-left: 0.5em;
+}
+
+.error {
+    color: red;
+    margin: 5em auto 0;
+}
+
+input[type=text] {
+    width: 15em;
+    font-family: inherit;
+    margin: 0.5em;
+    padding: 0.75em 0.5em 0.75em 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input:focus{
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+a:hover {
+    color: cornflowerblue;
+}
+
+button {
+    margin: 0.5em;
+    padding: 0.5em 0.3em 0.5em 0.3em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    background: white;
+}
+
+button:hover {
+    background: lightgrey;
+}

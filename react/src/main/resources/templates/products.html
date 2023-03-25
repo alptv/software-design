@@ -1,0 +1,19 @@
+<link href="/css/products.css" rel="stylesheet">
+
+<div th:replace="~{menu :: with-menu(~{:: #products})}">
+    <div id="products">
+        <label>Products</label>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getDescription()}"> </td>
+                <td th:text="|${product.getAmount().getAmount()} ${product.getAmount().getCurrency().toString()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<link href="/css/index.css" rel="stylesheet">
+
+<div th:replace="~{menu :: with-menu(~{:: #welcome})}">
+    <div id="welcome">
+        <span th:text="|Welcome, ${user.getLogin()}!|"></span>
+    </div>
+</div>

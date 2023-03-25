@@ -1,0 +1,25 @@
+<link href="/css/auth.css" rel="stylesheet">
+
+<div th:replace="~{base :: page(~{:: #form-container})}">
+  <div id="form-container">
+    <form id="auth" method="post">
+      <label for="login">Login</label>
+      <input id="login" name="login" type="text">
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="text">
+
+      <div id="currency">
+        <input name="currency"
+               type="radio"
+               th:each="currency : ${currencies}"
+               th:text="${currency.toString()}"
+               th:value="${currency.toString()}"
+        />
+      </div>
+
+      <button type="submit" formaction="/register">Register</button>
+      <a href="/login">Login</a>
+    </form>
+  </div>
+</div>
